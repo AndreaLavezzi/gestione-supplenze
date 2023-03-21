@@ -20,7 +20,6 @@
                             <option>Visentin Alessandro</option>
                             <option>Lamantea Cesare Nicola</option>
                             <option>Manfrini Anita</option>
-
                         </select>
                         <div class="invalid-feedback">
                             Please provide a valid name
@@ -110,10 +109,35 @@
 
                 <hr class="my-4">
 
-                <div class="d-flex justify-content-center align-content-center" id="button">
-                    <div class="w-50 btn btn-primary btn-lg" id="send-button">Invia</div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Vuoi confermare la seguente assenza?</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="modal-body">
+                                <span class="row"> Nome: <span id="confirm-name"></span> </span>
+                                <span class="row"> Tipo di assenza: <span id="confirm-absence-type"></span> </span>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                                <button type="button" class="btn btn-primary">Conferma</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <button type="button" id="send-button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Invia
+                </button>
         </form>
+
+
+
+
     </div>
 
     <script>
@@ -123,7 +147,8 @@
             var date_from = new Date($("#date-from").val());
             var date_to = new Date($("#date-to").val());
             var check = [];
-            console.log(absence_type.text(), name.text(), date_from, date_to.text(), check);
+            $("#confirm-name").html(name.text());
+            $("#confirm-absence-type").html(absence_type.text());
         });
     </script>
 </main>

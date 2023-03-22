@@ -12,8 +12,8 @@
                 <div class="row g-2">
                     <div class="col-md-5">
                         <label for="name" class="form-label ms-1">Nome docente</label>
-                        <select class="form-select" id="name" required="">
-                            <option value="">Inserire il docente</option>
+                        <select class="form-select" id="name" required="true">
+                            <option value="" disabled selected>Inserire il docente</option>
                             <option>Raspa Massimiliano</option>
                             <option>Dall'Ara Enrico Ermanno</option>
                             <option>Mazzullo Alessandro</option>
@@ -163,7 +163,7 @@
             var reason = $("#reason option:selected");
             var disease_protocol_number = $("#disease-protocol-number").val();
 
-   
+            
 
             $(".form-check :checkbox").each(function() {
                 if ($(this).is(":checked")) {

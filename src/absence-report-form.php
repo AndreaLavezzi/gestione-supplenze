@@ -5,14 +5,14 @@
 
     <div class="col-12">
 
-        <form class="needs-validation" novalidate="">
+        <form class="needs-alidation" novalidate="">
             <div class="row g-3">
                 <h4 class="">Segnala la tua assenza</h4>
 
                 <div class="row g-2">
                     <div class="col-md-5">
                         <label for="name" class="form-label ms-1">Nome docente</label>
-                        <select class="form-select" id="name" required="true">
+                        <select class="form-select" id="name" required>
                             <option value="0" disabled selected>Inserire il docente</option>
                             <option>Raspa Massimiliano</option>
                             <option>Dall'Ara Enrico Ermanno</option>
@@ -31,7 +31,7 @@
                 <div class="row g-2">
                     <div class="col-md-5">
                         <label for="absence-type" class="form-label ms-1">Tipo di assenza</label>
-                        <select class="form-select" id="absence-type" required="">
+                        <select class="form-select" id="absence-type">
                             <option value="0">Inserire il tipo di assenza</option>
                             <option value="1">Singolo giorno</option>
                             <option value="2">Gruppo di giorni</option>
@@ -120,20 +120,13 @@
                             </div>
                             <div class="modal-body" id="modal-body">
                                 <div class="row g-1">
-                                    <span id="confirm-name-container"> Nome: <span id="confirm-name"></span> </span>
-                                    <span id="confirm-absence-type-container"> Tipo di assenza: <span
-                                            id="confirm-absence-type"></span> </span>
-                                    <span id="confirm-date-from-container"> Data inizio: <span
-                                            id="confirm-date-from"></span> </span>
-                                    <span id="confirm-date-to-container"> Data fine: <span id="confirm-date-to"></span>
-                                    </span>
-                                    <span id="confirm-hours-container"> Ore di assenza: <span id="confirm-hours"></span>
-                                    </span>
-                                    <span id="confirm-reason-container"> Motivo: <span id="confirm-reason"></span>
-                                    </span>
-                                    <span id="confirm-disease-protocol-number-container"> Numero protocollo malattia:
-                                        <span id="confirm-disease-protocol-number"></span> </span>
-
+                                    <span id="confirm-name"></span>
+                                    <span id="confirm-absence-type"></span>
+                                    <span id="confirm-date-from"></span>
+                                    <span id="confirm-date-to"></span>
+                                    <span id="confirm-hours"></span>
+                                    <span id="confirm-reason"></span>
+                                    <span id="confirm-disease-protocol-number"></span>
                                 </div>
 
                             </div>
@@ -199,15 +192,21 @@
                 day: 'numeric'
             };
 
-            var absence_type = $("#absence-type option:selected");
-            var name = $("#name option:selected");
-            var date_from = new Date($("#date-from").val());
-            var date_to = new Date($("#date-to").val());
-            var check = $('input[name=thename]:checked');
-            var reason = $("#reason option:selected");
-            var disease_protocol_number = $("#disease-protocol-number");
-        
-
+            var
+                absenceType = $("#absence-type option:selected"),
+                name = $("#name option:selected"),
+                dateFrom = new Date($("#date-from").val()),
+                dateTo = new Date($("#date-to").val()),
+                check = [],
+                reason = $("#reason option:selected"),
+                diseaseProtocolNumber = $("#disease-protocol-number"),
+                confirmName = $("#confirm-name"),
+                confirmAbsenceType = $("#confirm-absence-type"),
+                confirmDateFrom = $("#confirm-date-from"),
+                confirmDateTo = $("#confirm-date-to"),
+                confirmHours = $("#confirm-hours"),
+                confirmReason = $("#confirm-reason"),
+                confirmDiseaseProtocolNumber = $("#confirm-disease-protocol-number");
 
             $(".form-check :checkbox").each(function () {
                 if ($(this).is(":checked")) {
@@ -217,76 +216,87 @@
                 }
             });
 
-            $("#confirm-name").html(name.text());
-            $("#confirm-absence-type").html(absence_type.text());
-            $("#confirm-date-from").html(date_from.toLocaleDateString('it-IT', options));
-            $("#confirm-date-to").html(date_to.toLocaleDateString('it-IT', options));
-            $("#confirm-hours").html("");
+            confirmName.html("Nome: " + name.text());
+
+            confirmAbsenceType.html("Tipo di assenza: " + absenceType.text());
+
+            if (absenceType.val() == 2) {
+                confirmDateFrom.html("Da: ");
+            } else {
+                confirmDateFrom.html("Giorno: ");
+            }
+            confirmDateFrom.append(dateFrom.toLocaleDateString('it-IT', options));
+
+            confirmDateTo.html("A: " + dateTo.toLocaleDateString('it-IT', options));
+
+            confirmHours.html("");
             for (var i = 0; i < check.length; i++) {
                 if (check[i] == "true") {
-                    $("#confirm-hours").append(" " + (i + 1) + "^ ora");
+                    confirmHours.append(" " + (i + 1) + "^ ora");
                 }
             }
-            $("#confirm-reason").html(reason.text());
-            $("#confirm-disease-protocol-number").html(disease_protocol_number.val());
 
-
-            switch (name.val()) {
-                case "0":
-                    $("#confirm-name-container").hide();
-                    break;
-                default:
-                    $("#confirm-name-container").show();
-                    break;
-            }
-            switch (absence_type.val()) {
-                case "0":
-                    $("#confirm-absence-type-container").hide();
-                    $("#confirm-date-to-container").hide();
-                    $("#confirm-hours-container").hide();
-                    break;
-                case "2":
-                    $("#confirm-absence-type-container").show();
-                    $("#confirm-date-to-container").show();
-                    $("#confirm-hours-container").hide();
-                    break;
-                case "3":
-                    $("#confirm-absence-type-container").show();
-                    $("#confirm-date-to-container").hide();
-                    if ($.inArray("true", check) != -1) {
-                        $("#confirm-hours-container").show();
-                    } else {
-                        $("#confirm-hours-container").hide();
-                    }
-                    break;
-                default:
-                    $("#confirm-absence-type-container").show();
-                    $("#confirm-date-to-container").hide();
-                    $("#confirm-hours-container").hide();
-                    break;
-            }
+            confirmReason.html("Motivo: " + reason.text());
             
-            switch (reason.val()) {
-                case "0":
-                    $("#confirm-reason-container").hide();
-                    $("#confirm-disease-protocol-number-container").hide();
-                    break;
-                case "1":
-                    $("#confirm-reason-container").show();
-                    if(confirm_disease_protocol_number.length != 0){
-                        $("#confirm-disease-protocol-number-container").show();
-                    }
-                default:
-                    $("#confirm-reason-container").show();
-                    $("#confirm-disease-protocol-number-container").hide();
-                    break;
-            }
+            confirmDiseaseProtocolNumber.html("Numero protocollo malattia: " + diseaseProtocolNumber.val());
 
-            if (!isNaN(date_from.getDate())) {
-                $("#confirm-date-from-container").show();
-            } else {
-                $("#confirm-date-from-container").hide();
-            }
+
+            // switch (name.val()) {
+            //     case "0":
+            //         $("#confirm-name-container").hide();
+            //         break;
+            //     default:
+            //         $("#confirm-name-container").show();
+            //         break;
+            // }
+            // switch (absenceType.val()) {
+            //     case "0":
+            //         $("#confirm-absence-type-container").hide();
+            //         $("#confirm-date-to-container").hide();
+            //         $("#confirm-hours-container").hide();
+            //         break;
+            //     case "2":
+            //         $("#confirm-absence-type-container").show();
+            //         $("#confirm-date-to-container").show();
+            //         $("#confirm-hours-container").hide();
+            //         break;
+            //     case "3":
+            //         $("#confirm-absence-type-container").show();
+            //         $("#confirm-date-to-container").hide();
+            //         if ($.inArray("true", check) != -1) {
+            //             $("#confirm-hours-container").show();
+            //         } else {
+            //             $("#confirm-hours-container").hide();
+            //         }
+            //         break;
+            //     default:
+            //         $("#confirm-absence-type-container").show();
+            //         $("#confirm-date-to-container").hide();
+            //         $("#confirm-hours-container").hide();
+            //         break;
+            // }
+
+            // switch (reason.val()) {
+            //     case "0":
+            //         $("#confirm-reason-container").hide();
+            //         $("#confirm-disease-protocol-number-container").hide();
+            //         break;
+            //     case "1":
+            //         $("#confirm-reason-container").show();
+            //         if (confirmDiseaseProtocolNumber.length != 0) {
+            //             $("#confirm-disease-protocol-number-container").show();
+            //         }
+            //     default:
+            //         $("#confirm-reason-container").show();
+            //         $("#confirm-disease-protocol-number-container").hide();
+            //         break;
+            // }
+
+            // if (!isNaN(dateFrom.getDate())) {
+            //     $("#confirm-date-from-container").show();
+            // } else {
+            //     $("#confirm-date-from-container").hide();
+            // }
         });
     </script>
 </main>

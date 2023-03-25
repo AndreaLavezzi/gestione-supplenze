@@ -9,6 +9,7 @@
             <div class="row g-3">
                 <h4 class="">Segnala la tua assenza</h4>
 
+                <!--Selezione nome docente-->
                 <div class="row g-2">
                     <div class="col-md-5">
                         <label for="name" class="form-label ms-1">Nome docente</label>
@@ -27,7 +28,7 @@
                     </div>
                 </div>
 
-
+                <!--Selezione tipo di assenza-->
                 <div class="row g-2">
                     <div class="col-md-5">
                         <label for="absence-type" class="form-label ms-1">Tipo di assenza</label>
@@ -43,18 +44,21 @@
                     </div>
                 </div>
 
+                <!--Inserimento date-->
                 <div class="row g-2">
+                    <!--Prima data-->
                     <div class="col-md-5" id="date-from-container">
                         <label for="date" class="form-label ms-1" id="date-from-label">Da</label>
                         <input type="date" class="form-control" id="date-from" placeholder="gg/mm/aaaa" required="">
                     </div>
-
+                    <!--Seconda data-->
                     <div class="col-md-5" id="date-to-container">
                         <label for="date" class="form-label ms-1">A</label>
                         <input type="date" class="form-control" id="date-to" placeholder="gg/mm/aaaa" required="">
                     </div>
                 </div>
 
+                <!--Selezione ore di assenza-->
                 <div id="hours">
                     <label for="hours" class="form-label">Ore di assenza</label>
                     <div class="form-check">
@@ -83,6 +87,7 @@
                     </div>
                 </div>
 
+                <!--Selezione motivo-->
                 <div class="row g-2">
                     <div class="col-md-5">
                         <label for="reason" class="form-label ms-1">Motivo</label>
@@ -97,6 +102,7 @@
                         </div>
                     </div>
 
+                    <!--Inserimento numero protocollo malattia-->
                     <div class="col-md-6" id="disease-protocol-number-container" style="display: none;">
                         <label for="disease-protocol-number" class="form-label ms-1">Numero protocollo malattia</label>
                         <input type="text" class="form-control" id="disease-protocol-number"
@@ -108,12 +114,14 @@
 
                 <hr class="my-4">
 
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                <!--Modale di conferma-->
+                <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Vuoi confermare la seguente assenza?
+                                <h1 class="modal-title fs-5" id="confirmationModalLabel">Vuoi confermare la seguente
+                                    assenza?
                                 </h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
@@ -139,7 +147,7 @@
                 </div>
 
                 <button type="button" id="send-button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">
+                    data-bs-target="#confirmationModal">
                     Invia
                 </button>
         </form>
@@ -150,22 +158,43 @@
     </div>
 
     <script>
+        let
+            hours = $("#hours"),
+            confirmName = $("#confirm-name"),
+            confirmAbsenceType = $("#confirm-absence-type"),
+            confirmDateFrom = $("#confirm-date-from"),
+            confirmDateTo = $("#confirm-date-to"),
+            confirmHours = $("#confirm-hours"),
+            confirmReason = $("#confirm-reason"),
+            confirmDiseaseProtocolNumber = $("#confirm-disease-protocol-number");
+
         $(document).ready(function () {
+
+            // Cambio campi in base al tipo di assenza
             $("#absence-type").change(function () {
                 switch ($(this).val()) {
                     case "1":
+                        // Singolo giorno - nasconde data di fine, ore da selezionare e cambia il testo della prima data in "giorno"
                         $("#date-to-container").hide();
-                        $("#hours").hide();
+                        hours.hide();
+                        confirmDateTo.hide();
+                        confirmHours.hide();
                         $("#date-from-label").html("Giorno");
                         break;
                     case "2":
+                        // Gruppo di giorni - nasconde le ore da selezionare, mostra la data di fine e cambia il testo della prima data in "da"
                         $("#date-to-container").show();
-                        $("#hours").hide();
+                        hours.hide();
+                        confirmDateTo.show();
+                        confirmHours.hide();
                         $("#date-from-label").html("Da");
                         break;
                     case "3":
+                        // Singole ore - nasconde la data di fine, mostra le ore da selezionare e cambia il testo della prima data in "giorno"
                         $("#date-to-container").hide();
-                        $("#hours").show();
+                        hours.show();
+                        confirmDateTo.hide();
+                        confirmHours.show();
                         $("#date-from-label").html("Giorno");
                         break;
 
@@ -184,7 +213,17 @@
                 }
             });
         });
+
         $("#send-button").click(function () {
+            var absenceType = $("#absence-type option:selected"),
+                name = $("#name option:selected"),
+                dateFrom = new Date($("#date-from").val()),
+                dateTo = new Date($("#date-to").val()),
+                check = [],
+                reason = $("#reason option:selected"),
+                diseaseProtocolNumber = $("#disease-protocol-number");
+
+
             const options = {
                 weekday: 'long',
                 year: 'numeric',
@@ -192,21 +231,7 @@
                 day: 'numeric'
             };
 
-            var
-                absenceType = $("#absence-type option:selected"),
-                name = $("#name option:selected"),
-                dateFrom = new Date($("#date-from").val()),
-                dateTo = new Date($("#date-to").val()),
-                check = [],
-                reason = $("#reason option:selected"),
-                diseaseProtocolNumber = $("#disease-protocol-number"),
-                confirmName = $("#confirm-name"),
-                confirmAbsenceType = $("#confirm-absence-type"),
-                confirmDateFrom = $("#confirm-date-from"),
-                confirmDateTo = $("#confirm-date-to"),
-                confirmHours = $("#confirm-hours"),
-                confirmReason = $("#confirm-reason"),
-                confirmDiseaseProtocolNumber = $("#confirm-disease-protocol-number");
+
 
             $(".form-check :checkbox").each(function () {
                 if ($(this).is(":checked")) {
@@ -237,66 +262,9 @@
             }
 
             confirmReason.html("Motivo: " + reason.text());
-            
+
             confirmDiseaseProtocolNumber.html("Numero protocollo malattia: " + diseaseProtocolNumber.val());
 
-
-            // switch (name.val()) {
-            //     case "0":
-            //         $("#confirm-name-container").hide();
-            //         break;
-            //     default:
-            //         $("#confirm-name-container").show();
-            //         break;
-            // }
-            // switch (absenceType.val()) {
-            //     case "0":
-            //         $("#confirm-absence-type-container").hide();
-            //         $("#confirm-date-to-container").hide();
-            //         $("#confirm-hours-container").hide();
-            //         break;
-            //     case "2":
-            //         $("#confirm-absence-type-container").show();
-            //         $("#confirm-date-to-container").show();
-            //         $("#confirm-hours-container").hide();
-            //         break;
-            //     case "3":
-            //         $("#confirm-absence-type-container").show();
-            //         $("#confirm-date-to-container").hide();
-            //         if ($.inArray("true", check) != -1) {
-            //             $("#confirm-hours-container").show();
-            //         } else {
-            //             $("#confirm-hours-container").hide();
-            //         }
-            //         break;
-            //     default:
-            //         $("#confirm-absence-type-container").show();
-            //         $("#confirm-date-to-container").hide();
-            //         $("#confirm-hours-container").hide();
-            //         break;
-            // }
-
-            // switch (reason.val()) {
-            //     case "0":
-            //         $("#confirm-reason-container").hide();
-            //         $("#confirm-disease-protocol-number-container").hide();
-            //         break;
-            //     case "1":
-            //         $("#confirm-reason-container").show();
-            //         if (confirmDiseaseProtocolNumber.length != 0) {
-            //             $("#confirm-disease-protocol-number-container").show();
-            //         }
-            //     default:
-            //         $("#confirm-reason-container").show();
-            //         $("#confirm-disease-protocol-number-container").hide();
-            //         break;
-            // }
-
-            // if (!isNaN(dateFrom.getDate())) {
-            //     $("#confirm-date-from-container").show();
-            // } else {
-            //     $("#confirm-date-from-container").hide();
-            // }
         });
     </script>
 </main>

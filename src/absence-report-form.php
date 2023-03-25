@@ -5,7 +5,7 @@
 
     <div class="col-12">
 
-        <form class="needs-alidation" novalidate="">
+        <form class="needs-alidation" id="form" novalidate="">
             <div class="row g-3">
                 <h4 class="">Segnala la tua assenza</h4>
 
@@ -115,12 +115,12 @@
                 <hr class="my-4">
 
                 <!--Modale di conferma-->
-                <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+                <div class="modal fade" id="confirmation-modal" tabindex="-1" aria-labelledby="confirmation-modal-label"
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="confirmationModalLabel">Vuoi confermare la seguente
+                                <h1 class="modal-title fs-5" id="confirmation-modal-label">Vuoi confermare la seguente
                                     assenza?
                                 </h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -146,8 +146,7 @@
                     </div>
                 </div>
 
-                <button type="button" id="send-button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#confirmationModal">
+                <button type="submit" id="send-button" class="btn btn-primary">
                     Invia
                 </button>
         </form>
@@ -214,7 +213,9 @@
             });
         });
 
-        $("#send-button").click(function () {
+        $("#form").submit(function (e) {
+            $("#confirmation-modal").modal('show');
+            e.preventDefault();
             var absenceType = $("#absence-type option:selected"),
                 name = $("#name option:selected"),
                 dateFrom = new Date($("#date-from").val()),
@@ -223,15 +224,12 @@
                 reason = $("#reason option:selected"),
                 diseaseProtocolNumber = $("#disease-protocol-number");
 
-
             const options = {
                 weekday: 'long',
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
             };
-
-
 
             $(".form-check :checkbox").each(function () {
                 if ($(this).is(":checked")) {

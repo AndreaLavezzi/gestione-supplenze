@@ -5,7 +5,7 @@
 
     <div class="col-12">
 
-        <form class="needs-alidation" id="form" novalidate="">
+        <form class="needs-validation" id="form" novalidate>
             <div class="row g-3">
                 <h4 class="">Segnala la tua assenza</h4>
 
@@ -13,8 +13,8 @@
                 <div class="row g-2">
                     <div class="col-md-5">
                         <label for="name" class="form-label ms-1">Nome docente</label>
-                        <select class="form-select" id="name" required>
-                            <option value="0" disabled selected>Inserire il docente</option>
+                        <select class="form-select" id="name" required="">
+                            <option value="" disabled selected>Inserire il docente</option>
                             <option>Raspa Massimiliano</option>
                             <option>Dall'Ara Enrico Ermanno</option>
                             <option>Mazzullo Alessandro</option>
@@ -32,8 +32,8 @@
                 <div class="row g-2">
                     <div class="col-md-5">
                         <label for="absence-type" class="form-label ms-1">Tipo di assenza</label>
-                        <select class="form-select" id="absence-type">
-                            <option value="0">Inserire il tipo di assenza</option>
+                        <select class="form-select" id="absence-type" required>
+                            <option value="">Inserire il tipo di assenza</option>
                             <option value="1">Singolo giorno</option>
                             <option value="2">Gruppo di giorni</option>
                             <option value="3">Singole ore</option>
@@ -62,27 +62,27 @@
                 <div id="hours">
                     <label for="hours" class="form-label">Ore di assenza</label>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="hour-one">
+                        <input type="checkbox" class="form-check-input" id="hour-one" required>
                         <label class="form-check-label" for="same-address">1^ ora</label>
                     </div>
 
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="hour-two">
+                        <input type="checkbox" class="form-check-input" id="hour-two" required>
                         <label class="form-check-label" for="same-address">2^ ora</label>
                     </div>
 
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="hour-three">
+                        <input type="checkbox" class="form-check-input" id="hour-three" required>
                         <label class="form-check-label" for="same-address">3^ ora</label>
                     </div>
 
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="hour-four">
+                        <input type="checkbox" class="form-check-input" id="hour-four" required>
                         <label class="form-check-label" for="same-address">4^ ora</label>
                     </div>
 
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="hour-five">
+                        <input type="checkbox" class="form-check-input" id="hour-five" required>
                         <label class="form-check-label" for="same-address">5^ ora</label>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                     <div class="col-md-5">
                         <label for="reason" class="form-label ms-1">Motivo</label>
                         <select class="form-select" id="reason" required="">
-                            <option value="0" selected disabled>Inserire il motivo</option>
+                            <option value="" selected disabled>Inserire il motivo</option>
                             <option value="1">Salute</option>
                             <option value="2">Vacanza</option>
                             <option value="3">Motivi personali</option>
@@ -106,7 +106,7 @@
                     <div class="col-md-6" id="disease-protocol-number-container" style="display: none;">
                         <label for="disease-protocol-number" class="form-label ms-1">Numero protocollo malattia</label>
                         <input type="text" class="form-control" id="disease-protocol-number"
-                            placeholder="Inserire il numero di protocollo malattia" required="">
+                            placeholder="Inserire il numero di protocollo malattia">
                     </div>
                 </div>
 
@@ -213,9 +213,8 @@
             });
         });
 
-        $("#form").submit(function (e) {
+        function showModal() {
             $("#confirmation-modal").modal('show');
-            e.preventDefault();
             var absenceType = $("#absence-type option:selected"),
                 name = $("#name option:selected"),
                 dateFrom = new Date($("#date-from").val()),
@@ -261,8 +260,67 @@
 
             confirmReason.html("Motivo: " + reason.text());
 
-            confirmDiseaseProtocolNumber.html("Numero protocollo malattia: " + diseaseProtocolNumber.val());
+            if(diseaseProtocolNumber.val().length != 0){
+                confirmDiseaseProtocolNumber.html("Numero protocollo malattia: " + diseaseProtocolNumber.val());
+            }
+        };
 
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    } else {
+                        event.preventDefault();
+                        showModal();
+                    }
+
+                    form.classList.add('was-validated');
+
+                }, false)
+            })
+        })()
+
+        $(function () {
+                var requiredCheckboxes = $('.form-check :checkbox[required]');
+            requiredCheckboxes.change(function () {
+                if (requiredCheckboxes.is(':checked')) {
+                    requiredCheckboxes.removeAttr('required');
+                } else {
+                    requiredCheckboxes.attr('required', 'required');
+                }
+            });
         });
+    </script>
+    <script>
+        function requireCheckboxes(areRequired) {
+            var checkboxes = $('.form-check');
+            switch (areRequired) {
+                case "true":
+                    checkboxes.attr('required', 'required');
+                    break;
+                case "false":
+                    checkboxes.removeAttr('required');
+                    break;
+            }
+        }
+
+        function requireDateTo(isRequired) {
+            var dateToContainer = $("#date-to-container");
+            switch (isRequired) {
+                case "true":
+
+                    break;
+                case "false":
+                    break;
+            }
+        }
     </script>
 </main>

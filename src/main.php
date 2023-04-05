@@ -1,6 +1,9 @@
 <?php
 $page = $_GET['p'];
 switch ($page) {
+    case "0":
+        include_once("login.php");
+        break;
     case "1":
         include_once("absence-report-form.php");
         break;

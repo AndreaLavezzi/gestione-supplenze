@@ -21,7 +21,6 @@
     <script src="https://code.jquery.com/jquery-3.6.4.js"
         integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous">
         </script>
-
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
         crossorigin="anonymous"></script>
@@ -30,17 +29,17 @@
         crossorigin="anonymous"></script>
 
 
-    <div class="container">
+    <div class="header">
         <?php
         require_once("header.php");
         ?>
     </div>
-    <div class="container">
+    <div class="main">
         <?php
         require_once("main.php");
         ?>
     </div>
-    <div class="container">
+    <div class="footer">
         <?php
         require_once("footer.php");
         ?>

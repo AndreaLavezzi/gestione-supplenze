@@ -1,6 +1,41 @@
 <?php
 ?>
 
-<main class="container shadow-lg rounded-3">
-    
+<main class="container text-center shadow-lg rounded-3">
+    <div class="row g-4">
+
+        <div class="col-12"><img src="img/41290578.jpg" class="img-fluid" width="150" height="150" alt="" srcset="">
+        </div>
+        <h1 class="display-3">Login</h1>
+        <small class="text-body-primary">Bentornato, inserisci le tue credenziali per accedere alla piattaforma</small>
+    </div>
+
+    <div class="row justify-content-center">
+        <form class="col-10 col-md-6 col-lg-4 mt-4" action="">
+
+            <div class="mb-4" id="username-container">
+                <label for="username" class="form-label ms-1">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Inserisci il tuo username o email">
+            </div>
+
+            <div class="mb-4" id="username-container">
+                <label for="username" class="form-label ms-1">Password</label>
+                <input type="text" class="form-control" id="username" placeholder="Inserisci la password">
+            </div>
+
+            <small class="row mb-4"><a href="">Hai dimenticato la password?</a></small>
+
+            <button type="submit" id="send-button" class="btn btn-primary col-4 mb-3">
+                Accedi
+            </button>
+        </form>
+    </div>
 </main>
+
+<!-- <script>
+    $(document).ready(function () {
+        $("#header").hide();
+        $("#footer").hide();
+    });
+
+</script> -->

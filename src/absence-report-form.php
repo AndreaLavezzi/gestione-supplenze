@@ -1,12 +1,11 @@
-<?php
-?>
+
 <main class="shadow-lg container rounded-3">
 
     <div class="col-12">
 
         <form class="needs-validation" id="form" novalidate>
-            <div class="row g-3">
-                <h4 class="">Segnala la tua assenza</h4>
+            <div class="row g-3 px-4">
+                <h4 class="px-auto">Segnala la tua assenza</h4>
 
                 <!--Selezione nome docente-->
                 <div class="row g-2">
@@ -44,7 +43,7 @@
                 </div>
 
                 <!--Inserimento date-->
-                <div class="row g-2">
+                <div class="row g-2 justify-content-between">
                     <!--Prima data-->
                     <div class="col-md-5" id="date-from-container">
                         <label for="date" class="form-label ms-1" id="date-from-label">Da</label>
@@ -105,8 +104,7 @@
                     <div class="col-md-6" id="disease-protocol-number-container" style="display: none;">
                         <label for="disease-protocol-number" class="form-label ms-1">Numero protocollo
                             malattia</label>
-                        <input type="text" class="form-control" id="disease-protocol-number"
-                            placeholder="Inserire il numero di protocollo malattia">
+                        <input type="text" class="form-control" id="disease-protocol-number" placeholder="Inserire il numero di protocollo malattia">
                     </div>
                 </div>
 
@@ -115,8 +113,7 @@
                 <hr class="my-4">
 
                 <!--Modale di conferma-->
-                <div class="modal fade" id="confirmation-modal" tabindex="-1" aria-labelledby="confirmation-modal-label"
-                    aria-hidden="true">
+                <div class="modal fade" id="confirmation-modal" tabindex="-1" aria-labelledby="confirmation-modal-label" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -124,8 +121,7 @@
                                     seguente
                                     assenza?
                                 </h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body" id="modal-body">
                                 <div class="row g-1">
@@ -168,10 +164,10 @@
             confirmReason = $("#confirm-reason"),
             confirmDiseaseProtocolNumber = $("#confirm-disease-protocol-number");
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
             // Cambio campi in base al tipo di assenza
-            $("#absence-type").change(function () {
+            $("#absence-type").change(function() {
                 switch ($(this).val()) {
                     case "1":
                         // Singolo giorno - nasconde data di fine, ore da selezionare e cambia il testo della prima data in "giorno"
@@ -201,7 +197,7 @@
                 }
             });
 
-            $("#reason").change(function () {
+            $("#reason").change(function() {
                 switch ($(this).val()) {
                     case "1":
                         $("#disease-protocol-number-container").show();
@@ -231,7 +227,7 @@
                 day: 'numeric'
             };
 
-            $(".form-check :checkbox").each(function () {
+            $(".form-check :checkbox").each(function() {
                 if ($(this).is(":checked")) {
                     check.push("true");
                 } else {
@@ -289,9 +285,9 @@
             })
         })()
 
-        $(function () {
+        $(function() {
             var requiredCheckboxes = $('.form-check :checkbox[required]');
-            requiredCheckboxes.change(function () {
+            requiredCheckboxes.change(function() {
                 if (requiredCheckboxes.is(':checked')) {
                     requiredCheckboxes.removeAttr('required');
                 } else {

@@ -1,17 +1,29 @@
 <?php
 ?>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
+
 <main class="container">
     <div class="row g-2 justify-content-between">
         <h2 class="col-6">Le assenze di oggi</h2>
         <button class="col-2 btn btn-primary">Segnala un'assenza</button>
     </div>
-    <div class="row">
-        <table id="myTable" class="display">
-            
-        </table>
+    <div class="container border border-secondary p-2 mt-4 rounded-2">
+        <div class="row">
+            <table id="myTable" class="table table-striped display nowrap">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Prezzo</th>
+                        <th>Tag</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
     </div>
 </main>
 <script>
@@ -252,15 +264,29 @@
         }
     ];
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $("#myTable").DataTable({
             data: data,
             columns: [
-                {data: 'id'},
-                {data: 'uid'},
-                {data: 'brand'},
-                {data: 'equipment'}
-            ]
+                { data: 'id' },
+                { data: 'uid' },
+                { data: 'brand' },
+                { data: 'equipment' }
+            ],
+            language: {
+                lengthMenu: '_MENU_ righe mostrate',
+                zeroRecords: 'Nessun dato corrispondente alla parola cercata',
+                info: 'Pagina _PAGE_ di _PAGES_',
+                infoEmpty: 'Nessun dato disponibile',
+                infoFiltered: '(filtrati da _MAX_ righe totali)',
+                search: "Cerca:",
+                "paginate": {
+                    "prima": "Primo",
+                    "last": "Ultimo",
+                    "next": "Successivo",
+                    "previous": "Precedente"
+                },
+            }
         });
     });
 </script>

@@ -27,3 +27,9 @@ if($page != "0" && $page != "1" && $page != "2"){
     require_once("footer.php");
 }
 ?>
+
+<style>
+    main{
+        min-height: 75vh;
+    }
+</style>

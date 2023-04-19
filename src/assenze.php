@@ -2,7 +2,6 @@
 ?>
 
 
-
 <main class="container">
     <div class="row g-2 justify-content-between">
         <h2 class="col-6">Le assenze di oggi</h2>
@@ -13,10 +12,11 @@
             <table id="myTable" class="table table-striped display nowrap">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Prezzo</th>
-                        <th>Tag</th>
+                        <th>Docente</th>
+                        <th>Data</th>
+                        <th>Ora</th>
+                        <th>Supplenza</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,251 +27,34 @@
     </div>
 </main>
 <script>
-    const data = [
-        {
-            "id": 970,
-            "uid": "c6636f91-f566-45bb-98ca-35626c05116c",
-            "brand": "Siemens",
-            "equipment": "Steam mop"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franca",
-            "equipment": "Radiator (heating)"
-        },
-        {
-            "id": 6324,
-            "uid": "c4312555-6443-4d01-a455-b23a897e0a73",
-            "brand": "Siemens",
-            "equipment": "Clothes iron"
-        },
-        {
-            "id": 261,
-            "uid": "526ba66d-5219-4402-ad13-c2aa6e1c7013",
-            "brand": "Franke",
-            "equipment": "Radiator (heating)"
-        }
-    ];
+    const data = [{
+        "docente": "Giorgio Pancaccini",
+        "data": "12/07",
+        "ora": "1^",
+        "supplenza": "Franco Cisco"
+    }];
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         $("#myTable").DataTable({
             data: data,
-            columns: [
-                { data: 'id' },
-                { data: 'uid' },
-                { data: 'brand' },
-                { data: 'equipment' }
+            columns: [{
+                    data: 'docente'
+                },
+                {
+                    data: 'data'
+                },
+                {
+                    data: 'ora'
+                },
+                {
+                    data: 'supplenza'
+                },
+                {
+                    data: null,
+                    className: "dt-center editor-edit",
+                    defaultContent: '<i class="fa fa-pencil"/>',
+                    orderable: false
+                }
             ],
             language: {
                 lengthMenu: '_MENU_ righe mostrate',
